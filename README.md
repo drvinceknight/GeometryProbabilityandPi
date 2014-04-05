@@ -1,5 +1,7 @@
 Repo containing resources for an outreach activity aiming to use dice to get an estimate for pi.
 
+You can see a fully rendered version of this [here](http://www.vincent-knight.com/outreach/geometry_probability_and_pi/).
+
 ### Requirements:
 
 Sufficient copies of the grid.pdf file and ten sided dice (depending on numbers students can be paired up).
@@ -62,11 +64,6 @@ The following is some [Sage](http://sagemath.org/) code that will simulate the p
 
 ### Alternative
 
-As the following shows we need to really run this for a lot of points to get an 'ok' approximation of pi:
-
-![](http://drvinceknight.github.io/EmbeddedEnterpriseExchange/Images/darts.gif)
-
-
 This **is not** an efficient way of calculating pi.
 Here is a formula by Srinivasa Ramanujan (1887-1920) that is much more efficient:
 
@@ -77,3 +74,4 @@ The following Sage code shows that just the first two terms of our sum give a gr
     k = var('k')
     f = lambda n : 9801 / sqrt(8) * (sum((factorial((4*k))*(1103 + 26390 * k))/((factorial(k))^4 * 396 ^ (4 * k)),k,0,n))^(-1)
     float(f(1))
+
