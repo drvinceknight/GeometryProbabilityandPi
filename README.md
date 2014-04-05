@@ -42,9 +42,26 @@ Ideally some students might realise that another approach to doing this would be
 The following is some [Sage](http://sagemath.org/) code that will simulate the points and plot them as well:
 
     def simpoints(N=1000):
-        points = [[random(), random()] for k in range(N)]
-        pointsincircle = [k for k in points if k[0] ^ 2 + k[1] ^ 2 <= 1]
-        p = list_plot(pointsincircle, color='blue')
-        p += list_plot([k for k in points if k not in pointsincircle], color='black')
-        p.show()
-        return 4 * len(pointsincircle) / N
+        """
+        Defines a function that will simulate N points
+        """
+        points = [[random(), random()] for k in range(N)]  # Create all our points
+        pointsincircle = [k for k in points if k[0] ^ 2 + k[1] ^ 2 <= 1]  #  Count the ones that are in the circle
+        p = list_plot(pointsincircle, color='blue')  # Plot the ones in the circle in blue
+        p += list_plot([k for k in points if k not in pointsincircle], color='black')  # Plot the others in black
+        p.show()  # Show the plot
+        return 4 * len(pointsincircle) / N  # Return the approximated value of pi
+
+    simpoints(1000)  # Run the above for 1000 points
+
+# Alternative
+
+As the following shows we need to really run this for a lot of points to get an 'ok' approximation of pi:
+
+![](http://drvinceknight.github.io/EmbeddedEnterpriseExchange/Images/darts.gif)
+
+
+This **is not** an efficient way of calculating pi.
+Here is a formula by Srinivasa Ramanujan (1887-1920) that is much more efficient:
+
+\[\pi = \frac{9801}{\sqrt{8}}\left(\sum_{k=0}^{\infty}\frac{(4k)!(1103+26390k)}{(k!)^4396^{4k}}\right)^{-1}\]
