@@ -1,10 +1,11 @@
 Repo containing resources for an outreach activity aiming to use dice to get an estimate for pi.
 
-# Requirements:
+### Requirements:
 
-Sufficient copies of the grid.pdf file and ten sided dice (depending on numbers students can be pairs).
+Sufficient copies of the grid.pdf file and ten sided dice (depending on numbers students can be paired up).
 
-# Instructions
+
+### Instructions
 
 The activity starts with a rather cryptic set of instructions:
 
@@ -16,27 +17,29 @@ Once this is done, ask the students what values they have obtained and if they k
 
 Keep track of the numbers of the board and finally carry out a calculation over the total number of points.
 
-# Explanations
+
+### Explanations
 
 As a group explain that probability of any given point landing in the circle is given by:
 
-\[P(\text{point in circle})=\frac{\text{Area of circle}}{\text{Area of square}}\]
+$$P(\text{point in circle})=\frac{\text{Area of circle}}{\text{Area of square}}$$
 
-If we let \(r\) denote the radius of the circle this gives:
+If we let \\(r\\) denote the radius of the circle this gives:
 
-\[P(\text{point in circle})=\frac{\pi r^2}{(2r)^2}=\frac{\pi}{4}\]
+$$P(\text{point in circle})=\frac{\pi r^2}{(2r)^2}=\frac{\pi}{4}$$
 
-Our data however gives us an **estimate** of \(P(\text{point in circle})\):
+Our data however gives us an **estimate** of \\(P(\text{point in circle})\\):
 
-\[P(\text{point in circle})\approx frac{n}{N}\]
+$$P(\text{point in circle})\approx \frac{n}{N}$$
 
 Thus we have:
 
-\[\pi\approx 4\frac{n}{N}\]
+$$\pi\approx 4\frac{n}{N}$$
 
 At this point ask if what would make the experiment everyone did better? (Answer: more data).
 
-# Code
+
+### Code
 
 Ideally some students might realise that another approach to doing this would be to get a computer to calculate this for us.
 The following is some [Sage](http://sagemath.org/) code that will simulate the points and plot them as well:
@@ -45,7 +48,7 @@ The following is some [Sage](http://sagemath.org/) code that will simulate the p
         """
         Defines a function that will simulate N points
         """
-        points = [[random(), random()] for k in range(N)]  # Create all our points
+        points = [[2 * (random() - .5), 2 * (random() - .5)] for k in range(N)]  # Create all our points
         pointsincircle = [k for k in points if k[0] ^ 2 + k[1] ^ 2 <= 1]  #  Count the ones that are in the circle
         p = list_plot(pointsincircle, color='blue')  # Plot the ones in the circle in blue
         p += list_plot([k for k in points if k not in pointsincircle], color='black')  # Plot the others in black
@@ -54,7 +57,10 @@ The following is some [Sage](http://sagemath.org/) code that will simulate the p
 
     simpoints(1000)  # Run the above for 1000 points
 
-# Alternative
+
+
+
+### Alternative
 
 As the following shows we need to really run this for a lot of points to get an 'ok' approximation of pi:
 
@@ -64,4 +70,10 @@ As the following shows we need to really run this for a lot of points to get an 
 This **is not** an efficient way of calculating pi.
 Here is a formula by Srinivasa Ramanujan (1887-1920) that is much more efficient:
 
-\[\pi = \frac{9801}{\sqrt{8}}\left(\sum_{k=0}^{\infty}\frac{(4k)!(1103+26390k)}{(k!)^4396^{4k}}\right)^{-1}\]
+$$\pi = \frac{9801}{\sqrt{8}}\left(\sum_{k=0}^{\infty}\frac{(4k)!(1103+26390k)}{(k!)^4396^{4k}}\right)^{-1}$$
+
+The following Sage code shows that just the first two terms of our sum give a great approximation of \(\pi\):
+
+    k = var('k')
+    f = lambda n : 9801 / sqrt(8) * (sum((factorial((4*k))*(1103 + 26390 * k))/((factorial(k))^4 * 396 ^ (4 * k)),k,0,n))^(-1)
+    float(f(1))
